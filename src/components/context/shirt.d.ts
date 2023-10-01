@@ -13,6 +13,6 @@ export type shirt = {
   information?: string;
   police?: string;
   Favorite?: boolean;
-  colors?: { available: boolean; color: Array<string> };
-  size?: { available: boolean; size: Array<string> };
+  colors?: Array<string>;
+  size?: Array<string>;
 };
