@@ -36,6 +36,9 @@ const slice = createSlice({
       }
       state.inView!.id = state.shirt[state.inView!.index].id;
     },
+    addFavorite(state) {
+      state.shirt[state.inView.index].Favorite = !state.shirt[state.inView.index].Favorite;
+    },
   },
 });
 

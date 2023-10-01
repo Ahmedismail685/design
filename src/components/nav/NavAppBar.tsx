@@ -13,6 +13,8 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { AccountCircle, ShoppingBag } from "@mui/icons-material";
+import { useAppDispatch } from "../context/hooks";
+import { OrderActions } from "../context/order/orderReducer";
 
 const pages = ["SHOP", "ABOUT", "WHERE TO BUY", "FAQ", "CONTACT"];
 
@@ -72,6 +74,11 @@ function NavAppBar() {
       },
     },
   }));
+  const dispatch = useAppDispatch();
+  function handleOpen(): void {
+    dispatch(OrderActions.show());
+  }
+
   return (
     <AppBar position="static" sx={{ bgcolor: "#000", "& > *": { color: "#f9c403" } }}>
       <Container maxWidth="xl">
@@ -170,7 +177,7 @@ function NavAppBar() {
             Log in
           </IconButton>
 
-          <IconButton sx={{ color: "#f9c403", mr: 1, fontSize: "1rem" }}>
+          <IconButton sx={{ color: "#f9c403", mr: 1, fontSize: "1rem" }} onClick={handleOpen}>
             <ShoppingBag sx={{ fontSize: 30 }} />
           </IconButton>
         </Toolbar>

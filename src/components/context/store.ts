@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import shirtReducer from "./shirtReducer";
+import orderReducer from "./order/orderReducer";
 // ...
 
 export const store = configureStore({
-  reducer: { shirt: shirtReducer },
+  reducer: { shirt: shirtReducer, order: orderReducer },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

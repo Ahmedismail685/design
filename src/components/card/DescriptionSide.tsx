@@ -1,15 +1,28 @@
 import Typography from "@mui/material/Typography";
 import { FormControl, InputLabel, Select, MenuItem, TextField, Button, Box, IconButton, Stack } from "@mui/material";
-import { Favorite, FavoriteOutlined } from "@mui/icons-material";
+import { Favorite, FavoriteBorder, FavoriteOutlined } from "@mui/icons-material";
 import Accordion from "./Accordion";
 import { shirt } from "../context/shirt";
 import { useState } from "react";
+import { ShirtActions } from "../context/shirtReducer";
+import { useAppDispatch } from "../context/hooks";
+import { OrderActions } from "../context/order/orderReducer";
 
-function DescriptionSide({ id, price, title, quantity, Favorite: favour, colors, information, police, size }: shirt) {
+function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, colors, information, police, size, url }: shirt) {
   const [selectColor, setSelectColor] = useState(colors ? colors[0] : undefined);
+  const [selectSize, setSelectSize] = useState(size ? size[0] : undefined);
+
+  const dispatch = useAppDispatch();
 
   function handleColor(color: string) {
     setSelectColor(color);
+  }
+  function handleFavorite() {
+    dispatch(ShirtActions.addFavorite());
+  }
+  function handleOrder() {
+    dispatch(OrderActions.show());
+    dispatch(OrderActions.addOrder({ id, price, quantity, title, url }));
   }
   return (
     <div style={{ width: 500, paddingLeft: 20, paddingTop: 0 }}>
@@ -22,11 +35,13 @@ function DescriptionSide({ id, price, title, quantity, Favorite: favour, colors,
       {/* size */}
 
       {size && (
-        <FormControl sx={{ width: 200 }}>
+        <FormControl sx={{ width: 200 }} size="small">
           <InputLabel id="demo-simple-select-label">select</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Size" size="small">
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Size" value={selectSize} onChange={(e) => setSelectSize(e.target.value)}>
             {size.map((z) => (
-              <MenuItem value={z}>{z}</MenuItem>
+              <MenuItem key={z} value={z}>
+                {z}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -41,6 +56,7 @@ function DescriptionSide({ id, price, title, quantity, Favorite: favour, colors,
           <Stack direction={"row"} spacing={1} mb={2}>
             {colors.map((color) => (
               <Box
+                key={color}
                 sx={[{ ":hover": { border: 2, borderColor: color } }, selectColor !== undefined && selectColor === color && { border: 2, borderColor: color }]}
                 border={2}
                 borderColor={"transparent"}
@@ -57,11 +73,11 @@ function DescriptionSide({ id, price, title, quantity, Favorite: favour, colors,
 
       <TextField id={id + " quantity"} label="Quantity" type="number" sx={{ display: "block", mt: 2 }} value={quantity} size="small" />
       <Box mt={5} display={"flex"} mb={2}>
-        <Button variant="outlined" color="secondary" fullWidth>
+        <Button variant="outlined" color="secondary" fullWidth onClick={handleOrder}>
           Add to card
         </Button>
-        <IconButton aria-label="favorite" color="error" sx={{ border: 1, ml: 2 }}>
-          {favour ? <Favorite /> : <FavoriteOutlined />}
+        <IconButton aria-label="favorite" color="error" sx={{ border: 1, ml: 2 }} onClick={handleFavorite}>
+          {isFavorite ? <Favorite /> : <FavoriteBorder />}
         </IconButton>
       </Box>
       <Button variant="contained" fullWidth>
