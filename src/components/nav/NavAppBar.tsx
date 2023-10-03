@@ -74,9 +74,10 @@ function NavAppBar() {
       },
     },
   }));
+
   const dispatch = useAppDispatch();
   function handleOpen(): void {
-    dispatch(OrderActions.show());
+    dispatch(OrderActions.show({ state: "view" }));
   }
 
   return (

@@ -4,6 +4,7 @@ import ItemImage from "./ItemImage";
 import { OrderActions } from "../context/order/orderReducer";
 import { useAppDispatch, useAppSelector } from "../context/hooks";
 import Description from "./Description";
+import ContainerValue from "./ContainerValue";
 
 export function ItemContainer() {
   const dispatch = useAppDispatch();
@@ -17,7 +18,9 @@ export function ItemContainer() {
         <div key={id}>
           <Item>
             <ItemImage url={url} id={id} />
-            <Description id={id} quantity={quantity} title={title} price={price} handleQuantity={handleQuantity} />
+            <Description title={title} price={price}>
+              <ContainerValue id={id} quantity={quantity} handleQuantity={handleQuantity} />
+            </Description>
           </Item>
           <Divider />
         </div>

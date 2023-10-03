@@ -12,7 +12,7 @@ export const items: Array<item & shirt> = [
     colors: ["black", "gray"],
     information: "hi this is a beast seller app",
     police: "red and yellow is the beast color ever",
-    total: 50,
+    total: 80,
   },
   {
     id: "0002",
@@ -22,7 +22,7 @@ export const items: Array<item & shirt> = [
     quantity: 1,
     colors: ["black", "gray"],
     police: "red and yellow is the beast color ever",
-    total: 50,
+    total: 542,
   },
   {
     id: "0003",
@@ -32,14 +32,14 @@ export const items: Array<item & shirt> = [
     quantity: 1,
     size: ["small", "medium"],
     information: "hi this is a beast seller app hone app",
-    total: 50,
+    total: 986,
   },
-  { id: "0004", price: 1983, url: "2", title: "jenny", quantity: 1, total: 50 },
+  { id: "0004", price: 1983, url: "2", title: "jenny", quantity: 1, total: 1983 },
 ];
 
 export const cartView: cart = {
   items: items,
-  summary: { total: 0, country: "Yemen", deliver: 0, subtotal: 500 },
+  summary: { total: 3591, country: "Yemen", deliver: 0, subtotal: 3591 },
   open: {
     openView: false,
     openCart: false,

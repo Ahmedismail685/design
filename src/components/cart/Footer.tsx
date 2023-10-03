@@ -1,6 +1,13 @@
 import { Box, Typography, Divider, Button } from "@mui/material";
+import { useAppDispatch } from "../context/hooks";
+import { OrderActions } from "../context/order/orderReducer";
 
 function Footer({ subtotal }: { subtotal: number }) {
+  const dispatch = useAppDispatch();
+
+  function handleCartOpen() {
+    dispatch(OrderActions.show({ state: "cart" }));
+  }
   return (
     <>
       <Box position={"fixed"} bottom={100} bgcolor={"#fff"} width={"100%"} height={100} py={2}>
@@ -10,7 +17,7 @@ function Footer({ subtotal }: { subtotal: number }) {
         <Divider />
       </Box>
       <Box position={"fixed"} bottom={0} bgcolor={"white"} width={"100%"} height={100}>
-        <Button variant="contained" sx={{ width: 250, mt: 3.5, ml: 6 }}>
+        <Button variant="contained" sx={{ width: 250, mt: 3.5, ml: 6 }} onClick={handleCartOpen}>
           view cart
         </Button>
       </Box>

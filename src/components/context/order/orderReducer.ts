@@ -1,28 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { cart, item } from "./order";
-import { items } from "../constant";
+import { cartView } from "../constant";
 
-const initialState: cart = {
-  open: {
-    openView: false,
-    openCart: false,
-  },
-  items: items,
-  summary: {
-    subtotal: 0,
-    deliver: 0,
-    country: "",
-    total: 0,
-  },
-};
+const initialState: cart = cartView;
 
 const slice = createSlice({
   name: "order",
   initialState,
   reducers: {
     show(state, { payload }: PayloadAction<{ state: "view" | "cart" }>) {
-      if (payload.state === "view") state.open.openView = !state.open.openView;
-      else state.open.openCart = !state.open.openCart;
+      if (payload.state === "view") {
+        state.open.openView = !state.open.openView;
+      } else {
+        state.open.openCart = true;
+        state.open.openView = false;
+      }
     },
     addOrder(state, { payload }: PayloadAction<item>) {
       const item = state.items.find((i) => i.id === payload.id);
@@ -38,11 +30,11 @@ const slice = createSlice({
       if (sign === "+") {
         item.quantity = item.quantity + value;
         state.summary.subtotal += item.price * value;
-        state.summary.total += state.summary.subtotal;
+        state.summary.total += item.price * value;
       } else {
         item.quantity = item.quantity - value;
         state.summary.subtotal -= item.price * value;
-        state.summary.total -= state.summary.subtotal;
+        state.summary.total -= item.price * value;
 
         if (item.quantity <= 0) {
           state.items = state.items.filter((i) => i.id !== item.id);

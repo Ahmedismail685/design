@@ -12,7 +12,6 @@ export default function Slice() {
     setTimeout(() => {
       setStep((p) => p + imgW);
       items.push(items[0]);
-      console.log(items);
     }, 6000);
   }, [step]);
 

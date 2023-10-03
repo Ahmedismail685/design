@@ -8,11 +8,11 @@ import { ItemContainer } from "./ItemContainer";
 export default function SideBar() {
   //
   const dispatch = useAppDispatch();
-  const subtotal = useAppSelector((s) => s.order.subtotal);
+  const subtotal = useAppSelector((s) => s.order.summary.subtotal);
 
-  const open = useAppSelector((s) => s.order.open);
+  const open = useAppSelector((s) => s.order.open.openView);
   function handleOpen() {
-    dispatch(OrderActions.show());
+    dispatch(OrderActions.show({ state: "view" }));
   }
 
   return (

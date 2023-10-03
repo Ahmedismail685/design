@@ -8,7 +8,7 @@ export type item = {
   price: number;
   quantity: number;
   url: string;
-  total: number;
+  total?: number;
 };
 
 export type summary = {

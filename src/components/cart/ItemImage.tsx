@@ -7,7 +7,7 @@ function ItemImage({ url, id }: { id: string; url: string }) {
   const dispatch = useAppDispatch();
   function handleView() {
     dispatch(ShirtActions.view(id));
-    dispatch(OrderActions.show());
+    dispatch(OrderActions.show({ state: "view" }));
   }
   return (
     <Box onClick={handleView}>

@@ -7,8 +7,9 @@ import SideBar from "./components/cart/SideBar";
 import CardView from "./components/cart view/CardView";
 
 function App() {
-  const openView = useAppSelector((s) => s.order.open.openView);
+  const openView = useAppSelector((s) => s.shirt.inView.show);
   const openCart = useAppSelector((s) => s.order.open.openCart);
+
   return (
     <>
       <NavAppBar />

@@ -1,10 +1,9 @@
-import { Box, Typography, Divider, Stack, IconButton, Button } from "@mui/material";
+import { Box, Typography, Divider, IconButton, Button } from "@mui/material";
 import ItemImage from "../cart/ItemImage";
-import Decrease from "../cart/Decrease";
-import Increase from "../cart/Increase";
-import QuantityFelid from "../cart/QuantityFelid";
 import { Close } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../context/hooks";
+import { OrderActions } from "../context/order/orderReducer";
+import ContainerValue from "../cart/ContainerValue";
 
 function CardView() {
   const {
@@ -14,6 +13,9 @@ function CardView() {
 
   const dispatch = useAppDispatch();
 
+  function handleQuantity(id: string, sign: string, value = 1) {
+    dispatch(OrderActions.changeQuantity({ id, sign, value }));
+  }
   return (
     <Box
       position={"absolute"}
@@ -41,11 +43,7 @@ function CardView() {
                 <Typography variant="body1" flexGrow={1}>
                   {title}
                 </Typography>
-                <Stack spacing={0.5} direction={"row"} alignItems={"center"}>
-                  <Increase handleQuantity={() => {}} id={id} />
-                  <QuantityFelid handleQuantity={() => {}} id={id} quantity={quantity} />
-                  <Decrease handleQuantity={() => {}} id={id} />
-                </Stack>
+                <ContainerValue id={id} quantity={quantity} handleQuantity={handleQuantity} />
                 <Typography variant="body1" mx={2}>
                   ${total}
                 </Typography>
