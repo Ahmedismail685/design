@@ -25,14 +25,15 @@ function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, col
     dispatch(ShirtActions.addFavorite());
   }
   function handleOrder() {
-    dispatch(OrderActions.show({ state: "view" }));
-    dispatch(OrderActions.addOrder({ id, price, quantity, title, url }));
+    dispatch(
+      OrderActions.addOrder({ id, price, quantity: selectQuantity, title, url, size: [selectSize ? selectSize : ""], colors: [selectColor ? selectColor : ""] })
+    );
   }
 
   return (
     <div style={{ width: 500, paddingLeft: 20, paddingTop: 0 }}>
       <BodyHeader id={id} price={price} title={title} />
-      {size && <Size selectSize={selectSize} setSelectSize={selectSize} size={size} />}
+      {size && <Size selectSize={selectSize} setSelectSize={setSelectSize} size={size} />}
       {colors && <Color colors={colors} handleColor={handleColor} selectColor={selectColor} />}
       <TextField
         id={id + " quantity"}
@@ -41,7 +42,8 @@ function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, col
         sx={{ display: "block", mt: 2 }}
         value={selectQuantity}
         size="small"
-        onChange={(e) => setSelectQuantity((prev) => prev + Number(e.target.value))}
+        onChange={(e) => setSelectQuantity(Number(e.target.value))}
+        inputProps={{ min: 1 }}
       />
       <OrderButton handleFavorite={handleFavorite} handleOrder={handleOrder} isFavorite={isFavorite} />
       <Button variant="contained" fullWidth>

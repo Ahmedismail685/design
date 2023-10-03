@@ -9,8 +9,8 @@ import ContainerValue from "./ContainerValue";
 export function ItemContainer() {
   const dispatch = useAppDispatch();
   const items = useAppSelector((i) => i.order.items);
-  function handleQuantity(id: string, sign: string, value = 1) {
-    dispatch(OrderActions.changeQuantity({ id, sign, value }));
+  function handleQuantity(id: string, value: number | undefined) {
+    dispatch(OrderActions.changeQuantity({ id, value }));
   }
   return (
     <Box p={4} pt={0} mt={12} pb={30}>

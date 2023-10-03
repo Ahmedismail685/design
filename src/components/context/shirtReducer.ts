@@ -15,12 +15,11 @@ const slice = createSlice({
   name: "shirt",
   initialState,
   reducers: {
-    view(state, { payload }: PayloadAction<string>) {
-      const item = state.shirt.filter((s) => s.id === payload)[0];
-
+    view(state, { payload }: PayloadAction<string | undefined>) {
       if (state.inView.show) {
         state.inView.show = false;
       } else {
+        const item = state.shirt.filter((s) => s.id === payload)[0];
         state.inView = { id: item.id, index: state.shirt.indexOf(item), show: true };
       }
     },

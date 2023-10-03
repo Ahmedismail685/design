@@ -1,12 +1,14 @@
 import { Box, Typography, Divider, Button } from "@mui/material";
 import { useAppDispatch } from "../context/hooks";
 import { OrderActions } from "../context/order/orderReducer";
+import { ShirtActions } from "../context/shirtReducer";
 
 function Footer({ subtotal }: { subtotal: number }) {
   const dispatch = useAppDispatch();
 
   function handleCartOpen() {
     dispatch(OrderActions.show({ state: "cart" }));
+    dispatch(ShirtActions.view());
   }
   return (
     <>

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { cart, item } from "./order";
 import { cartView } from "../constant";
+import { cart, shirt } from "../shirt";
 
 const initialState: cart = cartView;
 
@@ -16,29 +16,46 @@ const slice = createSlice({
         state.open.openView = false;
       }
     },
-    addOrder(state, { payload }: PayloadAction<item>) {
-      const item = state.items.find((i) => i.id === payload.id);
-      if (item) {
-        item!.quantity = item!.quantity + 1;
-      } else state.items.push(payload);
-      state.summary.subtotal += payload.price;
-      state.summary.total += state.summary.subtotal;
-    },
-    changeQuantity(state, { payload }: PayloadAction<{ id: string; sign: string; value: number }>) {
-      const { id, sign, value } = payload;
-      const item = state.items.filter((i) => i.id === id)[0];
-      if (sign === "+") {
-        item.quantity = item.quantity + value;
-        state.summary.subtotal += item.price * value;
-        state.summary.total += item.price * value;
+    addOrder(state, { payload }: PayloadAction<shirt>) {
+      let item = state.items.filter((i) => i.id === payload.id)[0];
+      if (item !== undefined) {
+        const newItem = { ...item, ...payload };
+        newItem.quantity = item.quantity + payload.quantity;
+        newItem.total = item.price * newItem.quantity;
+        state.items[state.items.indexOf(item)] = newItem;
+        state.summary.subtotal += newItem.total!;
+        state.summary.total += newItem.total!;
       } else {
-        item.quantity = item.quantity - value;
-        state.summary.subtotal -= item.price * value;
-        state.summary.total -= item.price * value;
+        payload.total = payload.price * payload.quantity;
+        state.items.push(payload);
+        state.summary.subtotal += payload.total!;
+        state.summary.total += payload.total!;
+      }
+    },
+    changeQuantity(state, { payload }: PayloadAction<{ id: string; value?: number }>) {
+      let { id, value } = payload;
+      const item = state.items.filter((i) => i.id === id)[0];
 
-        if (item.quantity <= 0) {
-          state.items = state.items.filter((i) => i.id !== item.id);
-        }
+      if (value === undefined) {
+        value = 1;
+        item.quantity += value;
+      } else if (value === -1) {
+        item.quantity -= 1;
+      } else if (value <= 0) {
+        state.summary.subtotal -= item.price * item.quantity;
+        state.summary.total -= item.price * item.quantity;
+        item.quantity = 0;
+      } else {
+        state.summary.subtotal -= item.price * item.quantity;
+        state.summary.total -= item.price * item.quantity;
+        item.quantity = value;
+      }
+      item.total! = item.price * item.quantity;
+      state.summary.subtotal += item.price * value;
+      state.summary.total += item.price * value;
+
+      if (item.quantity <= 0) {
+        state.items = state.items.filter((i) => i.id !== item.id);
       }
     },
   },

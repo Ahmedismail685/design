@@ -1,11 +1,11 @@
 import { Box, Typography, Divider, IconButton, Button } from "@mui/material";
-import ItemImage from "../cart/ItemImage";
+import ItemImage from "../sideBar/ItemImage";
 import { Close } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../context/hooks";
 import { OrderActions } from "../context/order/orderReducer";
-import ContainerValue from "../cart/ContainerValue";
+import ContainerValue from "../sideBar/ContainerValue";
 
-function CardView() {
+function MyCart() {
   const {
     items,
     summary: { country, deliver, subtotal, total },
@@ -13,8 +13,8 @@ function CardView() {
 
   const dispatch = useAppDispatch();
 
-  function handleQuantity(id: string, sign: string, value = 1) {
-    dispatch(OrderActions.changeQuantity({ id, sign, value }));
+  function handleQuantity(id: string, value: number) {
+    dispatch(OrderActions.changeQuantity({ id, value }));
   }
   return (
     <Box
@@ -35,7 +35,7 @@ function CardView() {
 
         {/* header end */}
 
-        {items.map(({ color, id, price, quantity, size, title, total, url }) => (
+        {items.map(({ colors, id, price, quantity, size, title, total, url }) => (
           <Box display={"flex"} my={3}>
             <ItemImage url={url} id={id} />
             <Box ml={2} width={"100%"}>
@@ -54,8 +54,8 @@ function CardView() {
               <Typography variant="body2" fontWeight={"bolder"}>
                 ${price}
               </Typography>
-              <Typography variant="body2">Size : {size}</Typography>
-              <Typography variant="body2">Color : {color}</Typography>
+              {size !== undefined && size[0] !== "" && <Typography variant="body2">Size : {size[0]}</Typography>}
+              {colors && colors[0] !== "" && <Typography variant="body2">Color : {colors[0]}</Typography>}
             </Box>
             <Divider />
           </Box>
@@ -90,4 +90,4 @@ function CardView() {
   );
 }
 
-export default CardView;
+export default MyCart;

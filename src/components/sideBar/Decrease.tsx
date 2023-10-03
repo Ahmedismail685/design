@@ -3,7 +3,7 @@ import { IconButton } from "@mui/material";
 
 function Decrease({ id, handleQuantity }: { id: string; handleQuantity: any }) {
   return (
-    <IconButton aria-label="decrease" onClick={() => handleQuantity(id, "+")} sx={{ m: 0, p: 0.5 }}>
+    <IconButton aria-label="decrease" onClick={() => handleQuantity(id)} sx={{ m: 0, p: 0.5 }}>
       <ArrowForwardIos />
     </IconButton>
   );
