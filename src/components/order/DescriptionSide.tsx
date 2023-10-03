@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { FormControl, InputLabel, Select, MenuItem, TextField, Button, Box, IconButton, Stack } from "@mui/material";
-import { Favorite, FavoriteBorder, FavoriteOutlined } from "@mui/icons-material";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import Accordion from "./Accordion";
 import { shirt } from "../context/shirt";
 import { useState } from "react";

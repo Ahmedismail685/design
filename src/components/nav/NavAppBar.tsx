@@ -80,7 +80,7 @@ function NavAppBar() {
   }
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "#000", "& > *": { color: "#f9c403" } }}>
+    <AppBar position="static" sx={{ bgcolor: "#000", height: 70, "& > *": { color: "#f9c403" } }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Search>

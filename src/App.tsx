@@ -1,29 +1,23 @@
-import { Grid } from "@mui/material";
 import NavAppBar from "./components/nav/NavAppBar";
 import Slice from "./components/slice/Slice";
 import ItemContainer from "./components/item/ItemContainer";
-import CardContainer from "./components/card/CardContainer";
+import CardContainer from "./components/order/CardContainer";
 import { useAppSelector } from "./components/context/hooks";
-import TemporaryDrawer from "./components/drawer/Drawer";
+import SideBar from "./components/cart/SideBar";
+import CardView from "./components/cart view/CardView";
 
 function App() {
-  const openView = useAppSelector((s) => s.shirt.inView).show;
+  const openView = useAppSelector((s) => s.order.open.openView);
+  const openCart = useAppSelector((s) => s.order.open.openCart);
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <NavAppBar />
-      </Grid>
-      <Grid item xs={12}>
-        <Slice />
-      </Grid>
-      <Grid item xs={12}>
-        <ItemContainer />
-        {openView && <CardContainer />}
-      </Grid>
-      <Grid item xs={12}>
-        <TemporaryDrawer />
-      </Grid>
-    </Grid>
+    <>
+      <NavAppBar />
+      <Slice />
+      <ItemContainer />
+      {openView && <CardContainer />}
+      <SideBar />
+      {openCart && <CardView />}
+    </>
   );
 }
 
