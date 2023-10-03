@@ -1,17 +1,11 @@
 import { Box, Avatar } from "@mui/material";
-import { useAppDispatch } from "../context/hooks";
-import { ShirtActions } from "../context/shirtReducer";
-import { OrderActions } from "../context/order/orderReducer";
+import { useNavigate } from "react-router";
 
 function ItemImage({ url, id }: { id: string; url: string }) {
-  const dispatch = useAppDispatch();
-  function handleView() {
-    dispatch(ShirtActions.view(id));
-    dispatch(OrderActions.show({ state: "view" }));
-  }
+  const navigate = useNavigate();
   return (
-    <Box onClick={handleView}>
-      <Avatar src={url + ".webp"} variant="square" sx={{ width: 100, height: 100, cursor: "pointer" }} />
+    <Box onClick={() => navigate("/view/" + id)}>
+      <Avatar src={"/" + url + ".webp"} variant="square" sx={{ width: 100, height: 100, cursor: "pointer" }} />
     </Box>
   );
 }

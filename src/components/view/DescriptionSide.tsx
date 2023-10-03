@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { TextField, Button } from "@mui/material";
-import { shirt } from "../context/shirt";
+import { shirtProps } from "../context/shirt";
 import { useState } from "react";
 import { ShirtActions } from "../context/shirtReducer";
 import { useAppDispatch } from "../context/hooks";
@@ -11,7 +11,7 @@ import Color from "./Color";
 import Size from "./Size";
 import BodyHeader from "./BodyHeader";
 
-function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, colors, information, police, size, url }: shirt) {
+function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, colors, information, police, size, url }: shirtProps) {
   const [selectColor, setSelectColor] = useState(colors ? colors[0] : undefined);
   const [selectSize, setSelectSize] = useState(size ? size[0] : undefined);
   const [selectQuantity, setSelectQuantity] = useState(quantity);
@@ -22,7 +22,7 @@ function DescriptionSide({ id, price, title, quantity, Favorite: isFavorite, col
     setSelectColor(color);
   }
   function handleFavorite() {
-    dispatch(ShirtActions.addFavorite());
+    dispatch(ShirtActions.addFavorite(id));
   }
   function handleOrder() {
     dispatch(

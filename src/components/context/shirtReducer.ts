@@ -1,42 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { items } from "./constant";
-import { shirt } from "./shirt";
+import { shirtProps } from "./shirt";
 
-const initialState: { shirt: Array<shirt>; inView: { id: string; index: number; show: boolean } } = {
+const initialState: { shirt: Array<shirtProps> } = {
   shirt: items,
-  inView: {
-    id: "",
-    index: 0,
-    show: false,
-  },
 };
 
 const slice = createSlice({
   name: "shirt",
   initialState,
   reducers: {
-    view(state, { payload }: PayloadAction<string | undefined>) {
-      if (state.inView.show) {
-        state.inView.show = false;
-      } else {
-        const item = state.shirt.filter((s) => s.id === payload)[0];
-        state.inView = { id: item.id, index: state.shirt.indexOf(item), show: true };
-      }
-    },
-    changeView(state, { payload }: PayloadAction<string>) {
-      const index = state.inView?.index;
-
-      if (payload === "+") {
-        if (index + 1 >= state.shirt.length) return;
-        state.inView!.index = state.inView!.index + 1;
-      } else {
-        if (index < 1) return;
-        state.inView!.index = state.inView!.index - 1;
-      }
-      state.inView!.id = state.shirt[state.inView!.index].id;
-    },
-    addFavorite(state) {
-      state.shirt[state.inView.index].Favorite = !state.shirt[state.inView.index].Favorite;
+    addFavorite(state, { payload }: PayloadAction<string>) {
+      const item = state.shirt.filter((i) => i.id === payload)[0];
+      item.Favorite = !item.Favorite;
     },
   },
 });

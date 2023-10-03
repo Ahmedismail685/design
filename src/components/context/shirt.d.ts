@@ -1,7 +1,7 @@
 //
 //
 //
-export type shirt = {
+export type shirtProps = {
   id: string;
   title: string;
   url: string;
@@ -16,10 +16,6 @@ export type shirt = {
   total?: number;
 };
 
-export type Open = {
-  openView: boolean;
-  openCart: boolean;
-};
 export type item = {};
 
 export type summary = {
@@ -30,7 +26,6 @@ export type summary = {
 };
 
 export type cart = {
-  open: Open;
-  items: Array<shirt>;
+  items: Array<shirtProps>;
   summary: summary;
 };

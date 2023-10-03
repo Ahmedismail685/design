@@ -13,8 +13,10 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase } from "@mui/material";
 import { AccountCircle, ShoppingBag } from "@mui/icons-material";
-import { useAppDispatch } from "../context/hooks";
+import { useAppDispatch, useAppSelector } from "../context/hooks";
 import { OrderActions } from "../context/order/orderReducer";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const pages = ["SHOP", "ABOUT", "WHERE TO BUY", "FAQ", "CONTACT"];
 
@@ -75,10 +77,8 @@ function NavAppBar() {
     },
   }));
 
-  const dispatch = useAppDispatch();
-  function handleOpen(): void {
-    dispatch(OrderActions.show({ state: "view" }));
-  }
+  const navigate = useNavigate();
+  const orderCount = useAppSelector((s) => s.order.items.length);
 
   return (
     <AppBar position="static" sx={{ bgcolor: "#000", height: 70, "& > *": { color: "#f9c403" } }}>
@@ -93,8 +93,6 @@ function NavAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -103,6 +101,8 @@ function NavAppBar() {
               color: "inherit",
               textDecoration: "none",
             }}
+            component={Link}
+            to={"/"}
           >
             T-Shirt
           </Typography>
@@ -138,7 +138,9 @@ function NavAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography component={Link} to={"/" + page} textAlign="center">
+                    {page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -146,8 +148,6 @@ function NavAppBar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -167,7 +167,8 @@ function NavAppBar() {
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block", fontWeight: "bold" }}
-                href={"/" + page.toLocaleLowerCase()}
+                component={Link}
+                to={"/" + page.toLocaleLowerCase()}
               >
                 {page}
               </Button>
@@ -178,7 +179,7 @@ function NavAppBar() {
             Log in
           </IconButton>
 
-          <IconButton sx={{ color: "#f9c403", mr: 1, fontSize: "1rem" }} onClick={handleOpen}>
+          <IconButton sx={{ color: "#f9c403", mr: 1, fontSize: "1rem" }} onClick={() => navigate("/order")}>
             <ShoppingBag sx={{ fontSize: 30 }} />
           </IconButton>
         </Toolbar>

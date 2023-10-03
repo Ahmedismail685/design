@@ -1,29 +1,25 @@
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
-import { useAppDispatch, useAppSelector } from "../context/hooks";
-import { OrderActions } from "../context/order/orderReducer";
+import { useAppSelector } from "../context/hooks";
 import Header from "./Header";
 import Footer from "./Footer";
 import { ItemContainer } from "./ItemContainer";
+import { useNavigate } from "react-router";
 
-export default function SideBar() {
+export default function Order() {
   //
-  const dispatch = useAppDispatch();
   const subtotal = useAppSelector((s) => s.order.summary.subtotal);
 
-  const open = useAppSelector((s) => s.order.open.openView);
-  function handleOpen() {
-    dispatch(OrderActions.show({ state: "view" }));
-  }
+  const navigate = useNavigate();
 
   return (
     <Drawer
-      open={open}
-      onClose={handleOpen}
+      open={true}
+      onClose={() => navigate("/")}
       anchor="right"
       sx={{ zIndex: (t) => t.zIndex.modal, [`.${drawerClasses.paper}`]: { width: 350 } }}
       variant="temporary"
     >
-      <Header handleOpen={handleOpen} />
+      <Header />
       <ItemContainer />
       <Footer subtotal={subtotal} />
     </Drawer>

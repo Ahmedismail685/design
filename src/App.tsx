@@ -1,9 +1,9 @@
 import NavAppBar from "./components/nav/NavAppBar";
 import Slice from "./components/slice/Slice";
 import ItemContainer from "./components/item/ItemContainer";
-import CardContainer from "./components/order/CardContainer";
-import SideBar from "./components/sideBar/SideBar";
-import CardView from "./components/cart view/MyCart";
+import ViewContainer from "./components/view/ViewContainer";
+import Order from "./components/sideBar/Order";
+import MyCart from "./components/cart/MyCart";
 import { Route, Routes } from "react-router";
 
 function App() {
@@ -13,10 +13,10 @@ function App() {
       <Slice />
       <ItemContainer />
       <Routes>
-        <Route path="cart" element={<CardContainer />} />
-        <Route path="view" element={<CardView />} />
+        <Route path="/view/:id" element={<ViewContainer />} />
+        <Route path="cart" element={<MyCart />} />
+        <Route path="order" element={<Order />} />
       </Routes>
-      <SideBar />
     </>
   );
 }

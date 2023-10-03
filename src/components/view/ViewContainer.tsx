@@ -3,19 +3,18 @@ import Header from "./Header";
 import Body from "./Body";
 import ImageSide from "./ImageSide";
 import DescriptionSide from "./DescriptionSide";
-import { useAppDispatch, useAppSelector } from "../context/hooks";
-import { ShirtActions } from "../context/shirtReducer";
+import { useAppSelector } from "../context/hooks";
+import { useNavigate, useParams } from "react-router";
 
-function CardContainer() {
-  const id = useAppSelector((s) => s.shirt.inView).id;
+function ViewContainer() {
+  const { id } = useParams();
+
   const shirt = useAppSelector((s) => s.shirt.shirt).filter((s) => s.id === id)[0];
 
-  const dispatch = useAppDispatch();
-  function handleClose() {
-    dispatch(ShirtActions.view(id));
-  }
+  const navigate = useNavigate();
+
   return (
-    <Dialog open={true} onClose={handleClose} maxWidth={"lg"}>
+    <Dialog open={true} onClose={() => navigate("/")} maxWidth={"lg"}>
       <DialogTitle>
         <Header />
       </DialogTitle>
@@ -29,4 +28,4 @@ function CardContainer() {
   );
 }
 
-export default CardContainer;
+export default ViewContainer;

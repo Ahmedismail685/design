@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { cartView } from "../constant";
-import { cart, shirt } from "../shirt";
+import { cart, shirtProps } from "../shirt";
 
 const initialState: cart = cartView;
 
@@ -8,15 +8,7 @@ const slice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    show(state, { payload }: PayloadAction<{ state: "view" | "cart" }>) {
-      if (payload.state === "view") {
-        state.open.openView = !state.open.openView;
-      } else {
-        state.open.openCart = true;
-        state.open.openView = false;
-      }
-    },
-    addOrder(state, { payload }: PayloadAction<shirt>) {
+    addOrder(state, { payload }: PayloadAction<shirtProps>) {
       let item = state.items.filter((i) => i.id === payload.id)[0];
       if (item !== undefined) {
         const newItem = { ...item, ...payload };

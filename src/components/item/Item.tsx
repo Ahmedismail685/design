@@ -1,17 +1,15 @@
 import { Card, CardHeader, Avatar, CardContent, Typography, CardActions, Button, alpha, Box } from "@mui/material";
 import { useAppDispatch } from "../context/hooks";
-import { ShirtActions } from "../context/shirtReducer";
-import { shirt } from "../context/shirt";
 import { OrderActions } from "../context/order/orderReducer";
+import { useNavigate } from "react-router";
+import { shirtProps } from "../context/shirt";
+import { createSearchParams } from "react-router-dom";
 
-function Item(shirt: shirt) {
+function Item(shirt: shirtProps) {
   const { id, price, title, url } = shirt;
 
   const dispatch = useAppDispatch();
-
-  function handleView() {
-    dispatch(ShirtActions.view(id));
-  }
+  const navigate = useNavigate();
   function handleOrder() {
     dispatch(OrderActions.addOrder({ id, price, title, url, quantity: 1 }));
   }
@@ -20,7 +18,7 @@ function Item(shirt: shirt) {
     <>
       <Card sx={{ width: 300 }}>
         <CardHeader
-          onClick={handleView}
+          onClick={() => navigate({ pathname: "/view/" + id })}
           sx={{ p: 0, ":hover #quick": { bottom: 0 } }}
           avatar={
             <Box width={300} position={"relative"} overflow={"hidden"}>
@@ -45,7 +43,7 @@ function Item(shirt: shirt) {
               >
                 Quick view
               </Box>
-              <Avatar src={url + ".webp"} alt={title + " image"} variant="square" sx={{ width: "100%", height: 300, cursor: "pointer" }} />
+              <Avatar src={"/" + url + ".webp"} alt={title + " image"} variant="square" sx={{ width: "100%", height: 300, cursor: "pointer" }} />
             </Box>
           }
         />

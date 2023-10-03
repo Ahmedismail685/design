@@ -21,7 +21,7 @@ export default function Slice() {
         {items.map((item, index) => (
           <Avatar
             key={index}
-            src={item + ".webp"}
+            src={"/" + item + ".webp"}
             alt={item + " image"}
             variant="square"
             sx={{ width: imgW, height: "370px", transform: `translateX(-${step}px)`, transition: "all ease-out 6s" }}

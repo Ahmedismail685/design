@@ -1,7 +1,7 @@
 import { cart, item } from "./order/order";
-import { shirt } from "./shirt";
+import { shirtProps } from "./shirt";
 
-export const items: Array<item & shirt> = [
+export const items: Array<item & shirtProps> = [
   {
     id: "0001",
     price: 80,
