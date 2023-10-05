@@ -13,8 +13,7 @@ import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { Badge, BadgeProps, InputBase, badgeClasses } from "@mui/material";
 import { AccountCircle, ShoppingBag } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../context/hooks";
-import { OrderActions } from "../context/order/orderReducer";
+import { useAppSelector } from "../context/hooks";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -77,7 +76,7 @@ function NavAppBar() {
     },
   }));
 
-  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  const StyledBadge = styled(Badge)<BadgeProps>(() => ({
     [`.${badgeClasses.badge}`]: {},
   }));
 

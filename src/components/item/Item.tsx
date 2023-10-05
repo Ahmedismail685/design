@@ -3,7 +3,6 @@ import { useAppDispatch } from "../context/hooks";
 import { OrderActions } from "../context/order/orderReducer";
 import { useNavigate } from "react-router";
 import { shirtProps } from "../context/shirt";
-import { createSearchParams } from "react-router-dom";
 
 function Item(shirt: shirtProps) {
   const { id, price, title, url } = shirt;

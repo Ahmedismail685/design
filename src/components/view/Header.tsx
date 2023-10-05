@@ -1,8 +1,7 @@
 import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Button, Typography, ButtonGroup } from "@mui/material";
 import { useAppSelector } from "../context/hooks";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { createSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 
 function Header() {
   const { id } = useParams();

@@ -1,4 +1,3 @@
-import Typography from "@mui/material/Typography";
 import { TextField, Button } from "@mui/material";
 import { shirtProps } from "../context/shirt";
 import { useState } from "react";

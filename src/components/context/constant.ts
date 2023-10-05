@@ -1,7 +1,6 @@
-import { cart, item } from "./order/order";
-import { shirtProps } from "./shirt";
+import { cart, item, shirtProps } from "./shirt";
 
-export const items: Array<item & shirtProps> = [
+export const items: Array<shirtProps> = [
   {
     id: "0001",
     price: 80,
@@ -40,9 +39,5 @@ export const items: Array<item & shirtProps> = [
 export const cartView: cart = {
   items: items,
   summary: { total: 3591, country: "Yemen", deliver: 0, subtotal: 3591 },
-  open: {
-    openView: false,
-    openCart: false,
-  },
 };
 export const orders: Array<item> = [];

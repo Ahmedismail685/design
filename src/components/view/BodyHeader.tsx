@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import React from "react";
 
 function BodyHeader({ id, price, title }: { id: string; title: string; price: number }) {
   return (
