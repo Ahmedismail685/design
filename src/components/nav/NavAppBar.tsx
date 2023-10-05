@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputBase } from "@mui/material";
+import { Badge, BadgeProps, InputBase, badgeClasses } from "@mui/material";
 import { AccountCircle, ShoppingBag } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../context/hooks";
 import { OrderActions } from "../context/order/orderReducer";
@@ -75,6 +75,10 @@ function NavAppBar() {
         },
       },
     },
+  }));
+
+  const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+    [`.${badgeClasses.badge}`]: {},
   }));
 
   const navigate = useNavigate();
@@ -178,9 +182,10 @@ function NavAppBar() {
             <AccountCircle sx={{ fontSize: 25, mr: 0.5 }} />
             Log in
           </IconButton>
-
           <IconButton sx={{ color: "#f9c403", mr: 1, fontSize: "1rem" }} onClick={() => navigate("/order")}>
-            <ShoppingBag sx={{ fontSize: 30 }} />
+            <StyledBadge badgeContent={orderCount} color="warning">
+              <ShoppingBag sx={{ fontSize: 30 }} />
+            </StyledBadge>
           </IconButton>
         </Toolbar>
       </Container>
